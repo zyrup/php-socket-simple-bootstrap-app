@@ -84,7 +84,8 @@ $wsClientIPCount = array();
 		8 => integer   FrameBytesRead,                    // amount of bytes read for a frame, reset to 0 when all frame data has been read
 		9 => string    FrameBuffer,                       // joined onto end as a frame's data comes in, reset to blank string when all frame data has been read
 		10 => integer  MessageOpcode,                     // stored by the first frame for fragmented messages, default value is 0
-		11 => integer  MessageBufferLength                // the payload data length of MessageBuffer
+		11 => integer  MessageBufferLength,               // the payload data length of MessageBuffer
+		12 => string   Session                            // uuidv4 string used as session
 	)
 	
 	$wsRead[ integer ClientID ] = resource Socket         // this one-dimensional array is used for socket_select()
@@ -256,7 +257,7 @@ function wsAddClient($socket, $clientIP) {
 	$clientID = wsGetNextClientID();
 	
 	// store initial client data
-	$wsClients[$clientID] = array($socket, '', WS_READY_STATE_CONNECTING, time(), false, 0, $clientIP, false, 0, '', 0, 0);
+	$wsClients[$clientID] = array($socket, '', WS_READY_STATE_CONNECTING, time(), false, 0, $clientIP, false, 0, '', 0, 0, '');
 	
 	// store socket - used for socket_select()
 	$wsRead[$clientID] = $socket;

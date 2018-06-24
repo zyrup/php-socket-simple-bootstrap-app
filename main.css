@@ -4,3 +4,11 @@
 body {
 	margin: 0;
 }
+#logged-in-state {
+	display: none;
+	background: #dedede;
+	color: #313131;
+}
+#logged-in-state.active {
+	display: block;
+}
